@@ -1,5 +1,3 @@
-const output = document.getElementById('passwordDisplay');
-
 function generatePassword(passwordlength, includeLowercase, includeUppercase, includeNumbers, includeSymbols) {
     const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz ';
     const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
@@ -25,12 +23,22 @@ function generatePassword(passwordlength, includeLowercase, includeUppercase, in
     return password;
 }
 
-function generate(){
-    const passwordlength = parseInt(document.getElementById("length").value);
-    const lowercaseChars = document.getElementById("includeLowercase").checked;
-    const uppercaseChars = document.getElementById("includeUppercase").checked;
-    const numberChars = document.getElementById("includeNumbers").checked;
-    const symbolChars = document.getElementById("includeSymbols").checked;
-    const password = generatePassword(passwordlength, lowercaseChars, uppercaseChars, numberChars, symbolChars);
-    output.innerHTML = `Generated Password: <span class="password-highlight">${password}</span>`;
+function generate() {
+    const output = document.getElementById('passwordDisplay');
+    const lengthInput = document.getElementById('length');
+    const passwordlength = parseInt(lengthInput.value, 10);
+
+    const includeLowercase = document.getElementById('includeLowercase').checked;
+    const includeUppercase = document.getElementById('includeUppercase').checked;
+    const includeNumbers = document.getElementById('includeNumbers').checked;
+    const includeSymbols = document.getElementById('includeSymbols').checked;
+
+    try {
+        const password = generatePassword(passwordlength, includeLowercase, includeUppercase, includeNumbers, includeSymbols);
+        output.innerHTML = `Generated Password: <span class="password-highlight">${password}</span>`;
+    } catch (err) {
+        // Show friendly message in the UI
+        output.innerHTML = `<span style="color:#ff6b6b">${err.message}</span>`;
+        console.error(err);
+    }
 }
