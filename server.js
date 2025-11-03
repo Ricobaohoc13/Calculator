@@ -5,5 +5,5 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
 
 app.listen(PORT, () => {
-  console.log(`Calculator app running on port ${PORT}`);
+  console.log(`Password Gen app running on port ${PORT}`);
 });
